@@ -21,7 +21,7 @@
 define sysctl::function::configfile(
   $content,
 ) {
-  $base = ${sysctl::params::configdir}/${name}"
+  $base = "${sysctl::params::configdir}/${name}"
 
   file { $base:
     ensure  => file,
