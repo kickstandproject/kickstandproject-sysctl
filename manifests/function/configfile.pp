@@ -21,10 +21,17 @@
 define sysctl::function::configfile(
   $content,
 ) {
-  file { "${sysctl::params::configdir}/${name}":
+  $base = ${sysctl::params::configdir}/${name}"
+
+  file { $base:
     ensure  => file,
     content => $content,
+    notify  => Exec["sysctl -p ${base}"],
     require => File[$sysctl::params::configdir],
+  }
+
+  exec { "sysctl -p ${base}":
+    refreshonly => true,
   }
 }
 
